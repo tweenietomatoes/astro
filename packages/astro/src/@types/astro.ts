@@ -1076,6 +1076,7 @@ export type Props = Record<string, unknown>;
 export interface AstroAdapter {
 	name: string;
 	serverEntrypoint?: string;
+	previewEntrypoint?: string;
 	exports?: string[];
 	args?: any;
 }
@@ -1135,7 +1136,7 @@ export interface AstroIntegration {
 	hooks: {
 		'astro:config:setup'?: (options: {
 			config: AstroConfig;
-			command: 'dev' | 'build';
+			command: 'dev' | 'build' | 'preview';
 			updateConfig: (newConfig: Record<string, any>) => void;
 			addRenderer: (renderer: AstroRenderer) => void;
 			injectScript: (stage: InjectedScriptStage, content: string) => void;
