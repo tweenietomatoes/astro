@@ -18,7 +18,8 @@ function getHandlerFromModule(mod: EndpointHandler, method: string) {
 }
 
 /** Renders an endpoint request to completion, returning the body. */
-export async function renderEndpoint(mod: EndpointHandler, request: Request, params: Params) {
+export async function renderEndpoint(mod: EndpointHandler, context: APIContext) {
+	const { request, params } = context;
 	const chosenMethod = request.method?.toLowerCase();
 	const handler = getHandlerFromModule(mod, chosenMethod);
 	if (!handler || typeof handler !== 'function') {
@@ -45,11 +46,6 @@ export function get({ params, request }) {
 
 Update your code to remove this warning.`);
 	}
-
-	const context = {
-		request,
-		params,
-	};
 
 	const proxy = new Proxy(context, {
 		get(target, prop) {
